@@ -1,102 +1,84 @@
-<<<<<<< HEAD
-# AI Health Risk Prediction
+# AI Disease Predictor - Hackathon Project
 
-This project is a beginner-friendly web app for early disease risk prediction.
-It includes:
-- `frontend/` — responsive Tailwind UI with charts and prediction history
-- `backend/` — Flask REST API with CORS
-- `model/` — ML model training and serialized model storage
+A responsive web app for early disease risk prediction using AI/ML.
 
-## Project structure
+## Features
 
-- `frontend/index.html` — user interface
-- `frontend/script.js` — frontend logic and API calls
-- `backend/app.py` — Flask backend API
-- `backend/requirements.txt` — Python dependencies
-- `model/train_model.py` — generate synthetic data and train model
-- `model/model.pkl` — serialized model file (created after training)
+- **Responsive UI**: Modern Tailwind CSS interface with charts
+- **AI Predictions**: Health risk assessment based on user inputs
+- **Prediction History**: View past predictions with visualizations
+- **No Authentication**: Direct access for quick demos
 
-## Setup
+## Tech Stack
 
-### 0. Install Python
+- **Frontend**: HTML, Tailwind CSS, JavaScript, Chart.js
+- **Backend**: Node.js, Express.js
+- **Deployment**: Ready for Vercel/Netlify
 
-Download and install Python 3.11 from https://www.python.org/downloads/ or use:
+## Quick Start
 
-```powershell
-winget install Python.Python.3.11
+1. **Clone the repo**
+   ```bash
+   git clone <your-repo-url>
+   cd health-ai-project
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run locally**
+   ```bash
+   npm start
+   ```
+   Open http://localhost:5000
+
+## Deployment
+
+### Vercel (Recommended for Hackathons)
+
+1. Connect your GitHub repo to Vercel
+2. Deploy automatically - no config needed
+3. Your app will be live at `your-project.vercel.app`
+
+### Netlify
+
+1. Drag & drop the project folder
+2. Set build command: `npm start`
+3. Deploy
+
+## API Endpoints
+
+- `POST /predict` - Get health risk prediction
+- `GET /history` - Get prediction history
+- `GET /` - Health check
+
+## Sample Input
+
+- Age: 45
+- Weight: 78 kg
+- Height: 170 cm
+- Glucose: 115 mg/dL
+- Blood Pressure: 135 mmHg
+- Cholesterol: 220 mg/dL
+- Smoking: No
+- Activity: Moderate
+
+## Project Structure
+
+```
+├── frontend/
+│   ├── index.html
+│   └── script.js
+├── backend/
+│   ├── server.js
+│   └── package.json
+├── model/
+│   └── train_model.py (optional ML training)
+└── README.md
 ```
 
-Make sure to add Python to your PATH during installation.
+## Demo
 
-### 1. Install Python dependencies
-
-Open PowerShell in the project root and run:
-
-```powershell
-python -m pip install -r backend/requirements.txt
-```
-
-### 2. Create the ML model
-
-Run:
-
-```powershell
-python model/train_model.py
-```
-
-This will generate `model/model.pkl`.
-
-### 3. Configure environment variables
-
-Copy the example file:
-
-```powershell
-copy backend\.env.example backend\.env
-```
-
-Edit `backend\.env` to set your MongoDB connection if needed.
-
-### 4. Start MongoDB
-
-Use a local MongoDB instance or MongoDB Atlas.
-If local, the default connection string is `mongodb://localhost:27017`.
-
-### 5. Run the backend
-
-```powershell
-python backend/app.py
-```
-
-The backend listens on `http://localhost:5000`.
-
-### 6. Open the frontend
-
-Open `frontend/index.html` in your browser.
-
-## Sample test data
-
-Use these values in the form:
-- Age: `45`
-- Weight: `78`
-- Height: `170`
-- Glucose: `115`
-- Blood Pressure: `135`
-- Cholesterol: `220`
-- Smoking: `No`
-- Physical Activity: `Moderate`
-
-## Notes
-
-- The frontend sends JSON to `/predict`
-- Predictions are saved in MongoDB and shown in the history view
-- The model is a simple logistic regression trained on synthetic data
-
-## Troubleshooting
-
-- If the UI cannot reach the backend, verify the backend is running on port `5000`
-- If MongoDB is not available, set `MONGO_URI` and `MONGO_DB` as environment variables
-- If `model/model.pkl` is missing, rerun `python model/train_model.py`
-=======
-# ai-desease-predictor
-hackathon project
->>>>>>> 97b6e2e6f6fc5da2e6e39e0c24f6a8d9e54c8fe9
+The app provides instant health risk predictions with visual charts and maintains a history of predictions for analysis.

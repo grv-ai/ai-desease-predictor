@@ -81,7 +81,10 @@
         </div>
 
         <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <button id="predictBtn" onclick="predictRisk()" class="inline-flex items-center justify-center rounded-3xl bg-cyan-500 px-6 py-3 text-base font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60">Predict Risk</button>
+          <div class="flex gap-3">
+            <button id="predictBtn" onclick="predictRisk()" class="inline-flex items-center justify-center rounded-3xl bg-cyan-500 px-6 py-3 text-base font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60">Predict Risk</button>
+            <button onclick="fillSampleData()" class="inline-flex items-center justify-center rounded-3xl border border-slate-700 bg-slate-800/50 px-6 py-3 text-base font-semibold text-slate-300 transition hover:bg-slate-700 hover:text-white">Fill Sample Data</button>
+          </div>
           <div id="loading" class="hidden items-center gap-2 rounded-full bg-white/5 px-4 py-3 text-sm text-slate-300"><span class="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan-400"></span> Running model...</div>
         </div>
       </section>

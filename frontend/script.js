@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "";
 let riskChart = null;
 let historyChart = null;
 
@@ -19,7 +19,17 @@ function setLoading(isLoading) {
   loader.classList.toggle("hidden", !isLoading);
 }
 
-function getFormData() {
+function fillSampleData() {
+  document.getElementById("age").value = 45;
+  document.getElementById("weight").value = 78;
+  document.getElementById("height").value = 170;
+  document.getElementById("glucose").value = 115;
+  document.getElementById("blood_pressure").value = 135;
+  document.getElementById("cholesterol").value = 220;
+  document.getElementById("smoking").value = "No";
+  document.getElementById("activity").value = "Moderate";
+  showToast("Sample data filled!", "success");
+}
   const age = Number(document.getElementById("age").value);
   const weight = Number(document.getElementById("weight").value);
   const height = Number(document.getElementById("height").value);
