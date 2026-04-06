@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Health Risk Prediction
 
 This project is a beginner-friendly web app for early disease risk prediction.
@@ -95,3 +96,7 @@ Use these values in the form:
 - If the UI cannot reach the backend, verify the backend is running on port `5000`
 - If MongoDB is not available, set `MONGO_URI` and `MONGO_DB` as environment variables
 - If `model/model.pkl` is missing, rerun `python model/train_model.py`
+=======
+# ai-desease-predictor
+hackathon project
+>>>>>>> 97b6e2e6f6fc5da2e6e39e0c24f6a8d9e54c8fe9
