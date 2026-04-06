@@ -37,8 +37,9 @@ risk_score = (
     - 0.15 * activity
 )
 
-probabilities = 1 / (1 + np.exp(-0.08 * (risk_score - 40)))
-labels = (probabilities > 0.5).astype(int)
+# Adjust the scaling to create more balanced classes
+probabilities = 1 / (1 + np.exp(-0.1 * (risk_score - np.mean(risk_score))))
+labels = (probabilities > 0.4).astype(int)  # Lower threshold for more balanced classes
 
 scaler = StandardScaler()
 features_scaled = scaler.fit_transform(features)
