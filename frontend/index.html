@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Health Risk Predictor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <header class="mb-8 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <div>
+        <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">AI Health Dashboard</p>
+        <h1 class="mt-3 text-4xl font-semibold tracking-tight text-white">Early Disease Risk Prediction</h1>
+        <p class="mt-2 max-w-2xl text-slate-300">Enter your health values and get a prediction backed by a simple ML model. Your inputs are saved so you can review your history later.</p>
+      </div>
+      <div class="rounded-3xl bg-slate-900/80 border border-slate-800 p-6 shadow-xl">
+        <p class="text-slate-400">Sample data for testing</p>
+        <ul class="mt-3 space-y-2 text-sm text-slate-300">
+          <li>Age: 45</li>
+          <li>Weight: 78 kg</li>
+          <li>Height: 170 cm</li>
+          <li>Glucose: 115</li>
+          <li>Blood Pressure: 135</li>
+          <li>Cholesterol: 220</li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
+      <section class="rounded-[2rem] bg-slate-900/90 p-6 shadow-2xl ring-1 ring-white/5">
+        <div class="flex items-center justify-between gap-4 pb-4 border-b border-slate-800">
+          <div>
+            <p class="text-sm uppercase tracking-[0.35em] text-cyan-400">Patient Details</p>
+            <h2 class="mt-2 text-2xl font-semibold">Input symptoms & values</h2>
+          </div>
+          <span class="rounded-full bg-cyan-500/10 px-4 py-2 text-sm text-cyan-300">Beginner friendly</span>
+        </div>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <label class="block">
+            <span class="text-sm text-slate-300">Age</span>
+            <input id="age" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="45" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Weight (kg)</span>
+            <input id="weight" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="78" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Height (cm)</span>
+            <input id="height" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="170" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Glucose</span>
+            <input id="glucose" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="115" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Blood Pressure</span>
+            <input id="blood_pressure" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="135" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Cholesterol</span>
+            <input id="cholesterol" type="number" min="1" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20" placeholder="220" />
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Smoking</span>
+            <select id="smoking" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20">
+              <option>No</option>
+              <option>Yes</option>
+            </select>
+          </label>
+          <label class="block">
+            <span class="text-sm text-slate-300">Physical Activity</span>
+            <select id="activity" class="mt-2 w-full rounded-3xl border border-slate-700 bg-slate-950/90 px-4 py-3 text-white outline-none focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20">
+              <option>Low</option>
+              <option>Moderate</option>
+              <option>High</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <button id="predictBtn" onclick="predictRisk()" class="inline-flex items-center justify-center rounded-3xl bg-cyan-500 px-6 py-3 text-base font-semibold text-slate-950 transition hover:bg-cyan-400 disabled:cursor-not-allowed disabled:opacity-60">Predict Risk</button>
+          <div id="loading" class="hidden items-center gap-2 rounded-full bg-white/5 px-4 py-3 text-sm text-slate-300"><span class="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan-400"></span> Running model...</div>
+        </div>
+      </section>
+
+      <section class="rounded-[2rem] bg-slate-900/90 p-6 shadow-2xl ring-1 ring-white/5">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div>
+            <p class="text-sm uppercase tracking-[0.35em] text-cyan-400">Prediction</p>
+            <h2 class="mt-2 text-2xl font-semibold">Dashboard</h2>
+          </div>
+        </div>
+
+        <div class="mt-6 space-y-5">
+          <div class="rounded-[1.75rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+            <p class="text-sm text-slate-400">Predicted Risk Level</p>
+            <p id="riskLevel" class="mt-3 text-4xl font-bold text-white">Waiting for input</p>
+            <p id="riskAdvice" class="mt-2 text-slate-300">Fill all fields and run prediction.</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="rounded-[1.75rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+              <p class="text-sm text-slate-400">Risk Probability</p>
+              <p id="riskScore" class="mt-3 text-3xl font-semibold text-cyan-300">0%</p>
+            </div>
+            <div class="rounded-[1.75rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+              <p class="text-sm text-slate-400">Suggestion</p>
+              <p id="suggestion" class="mt-3 text-lg font-medium text-slate-100">Use the form to get actionable advice.</p>
+            </div>
+          </div>
+
+          <div class="rounded-[2rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+            <canvas id="riskChart" width="400" height="240"></canvas>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="mt-6 rounded-[2rem] bg-slate-900/90 p-6 shadow-2xl ring-1 ring-white/5">
+      <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-sm uppercase tracking-[0.35em] text-cyan-400">History</p>
+          <h2 class="mt-2 text-2xl font-semibold">Saved predictions</h2>
+        </div>
+        <button onclick="loadHistory()" class="rounded-3xl bg-slate-800 px-4 py-2 text-sm text-slate-200 transition hover:bg-slate-700">Refresh</button>
+      </div>
+
+      <div class="mt-6 grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+        <div class="rounded-[1.75rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+          <div id="historyList" class="space-y-4 text-slate-300">Loading history…</div>
+        </div>
+        <div class="rounded-[1.75rem] bg-slate-950/80 p-5 shadow-inner ring-1 ring-slate-700">
+          <canvas id="historyChart" width="400" height="260"></canvas>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 right-6 hidden rounded-3xl bg-slate-900/95 px-5 py-4 text-sm text-white shadow-2xl ring-1 ring-cyan-500/20"></div>
+  <script src="./script.js"></script>
+</body>
+</html>
